@@ -2,7 +2,7 @@
 
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { DataTable } from "datatable-hrnet-nathan-hallouin";
+import { DataTable } from "hrnet-datatable-styled-components";
 import { getData } from "@/app/store/selector";
 import { IEmployee } from "../../types";
 import { useEffect, useState } from "react";
