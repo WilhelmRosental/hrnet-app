@@ -3,8 +3,7 @@ import Form from "@/components/Form";
 import styled from "styled-components";
 
 const H2 = styled.h2`
-  font-size: ${({ theme }) =>
-    theme.fontSize.paragraph}; /* Utilisation de la taille de police du thème */
+  font-size: ${({ theme }) => theme.fontSize.paragraph};
   font-weight: 500;
   margin: 0;
 `;
