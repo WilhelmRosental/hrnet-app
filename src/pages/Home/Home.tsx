@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addData } from '../../app/store/formSlice';
+import { addData } from '../../store/formSlice';
 import { IEmployee } from '../../types';
 
 const formStyle = {

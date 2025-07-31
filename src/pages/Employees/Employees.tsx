@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getData } from "../../app/store/selector";
+import { getData } from "../../store/selector";
 
 const tableStyle = {
   width: "100%",
