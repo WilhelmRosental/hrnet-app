@@ -1,8 +1,9 @@
-import { createGlobalStyle, DefaultTheme } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyles = createGlobalStyle<{ theme: DefaultTheme }>`
+export const GlobalStyles = createGlobalStyle`
   * {
-    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
 
@@ -17,8 +18,10 @@ export const GlobalStyles = createGlobalStyle<{ theme: DefaultTheme }>`
   }
 
   body {
-    color: ${({ theme }) => theme.colors.secondary};
-    font-family: ${({ theme }) => theme.fontFamily.body};
+    font-family: Arial, sans-serif;
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
+    line-height: 1.6;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -42,6 +45,12 @@ export const GlobalStyles = createGlobalStyle<{ theme: DefaultTheme }>`
   button {
     padding: 0;
     background-color: transparent;
+    font-family: inherit;
+  }
+
+  input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
   }
 
   figure {
@@ -78,4 +87,4 @@ export const GlobalStyles = createGlobalStyle<{ theme: DefaultTheme }>`
   input[type='search']::-webkit-search-results-decoration {
     display: none;
   }
-`
+`;

@@ -1,35 +1,39 @@
 {
   "name": "hrnet-app",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
+  "main": "dist/main/main.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build:renderer": "vite build",
+    "preview": "vite preview",
+    "build:main": "swc src/main/main.ts --config-file .swcrc.main --out-file dist/main/main.js",
+    "build": "npm run build:main && npm run build:renderer",
+    "electron": "electron .",
+    "electron:dev": "npm run build && electron .",
+    "lint": "eslint src/**/*.{ts,tsx}"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.5.0",
+    "@reduxjs/toolkit": "^2.8.2",
     "hrnet-datatable-styled-components": "^1.0.1",
-    "next": "15.1.2",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-redux": "^9.2.0",
-    "styled-components": "^6.1.13"
+    "electron": "^37.2.4"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2",
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
-    "@types/styled-components": "^5.1.34",
-    "babel-plugin-styled-components": "^2.1.4",
-    "eslint": "^9.17.0",
-    "eslint-config-next": "15.1.2",
-    "typescript": "^5.7.2"
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^7.0.6",
+    "@types/node": "^24.1.0",
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7",
+    "eslint": "^9.32.0",
+    "typescript": "^5.8.3",
+    "@swc/cli": "^0.7.8",
+    "@swc/core": "^1.13.3"
   },
   "overrides": {
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2"
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7"
   }
 }

@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { DataTable } from "hrnet-datatable-styled-components";
-import { getData } from "../store/selector";
+import { getData } from "../../store";
 import { IEmployee } from "../../types";
 import { useEffect, useState } from "react";
+import styles from "./Employees.module.css";
 
 export default function Employees() {
   const dataEmployees = useSelector(getData);
@@ -41,49 +42,49 @@ export default function Employees() {
     return null;
   }
 
-  // Create styled components using inline styles
+  // Create styled components using CSS classes
   const DataTableStyle = ({ children, ...props }: any) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }} {...props}>{children}</div>
+    <div className={styles.dataTableStyle} {...props}>{children}</div>
   );
   
   const ToolsBar = ({ children, ...props }: any) => (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 16px' }} {...props}>{children}</div>
+    <div className={styles.toolsBar} {...props}>{children}</div>
   );
   
   const TableContainer = ({ children, ...props }: any) => (
-    <div style={{ overflow: 'scroll', borderRadius: '15px' }} {...props}>{children}</div>
+    <div className={styles.tableContainer} {...props}>{children}</div>
   );
   
   const Table = ({ children, ...props }: any) => (
-    <table style={{ borderCollapse: 'collapse', tableLayout: 'fixed', width: '100%', minWidth: '700px', borderRadius: '15px' }} {...props}>{children}</table>
+    <table className={styles.table} {...props}>{children}</table>
   );
   
   const Thead = ({ children, ...props }: any) => (
-    <thead style={{ fontSize: '14px', backgroundColor: 'orange' }} {...props}>{children}</thead>
+    <thead className={styles.thead} {...props}>{children}</thead>
   );
   
   const Tbody = ({ children, ...props }: any) => (
-    <tbody style={{ fontSize: '12px' }} {...props}>{children}</tbody>
+    <tbody className={styles.tbody} {...props}>{children}</tbody>
   );
   
   const TableRow = ({ children, ...props }: any) => (
-    <tr {...props}>{children}</tr>
+    <tr className={styles.tableRow} {...props}>{children}</tr>
   );
   
   const Entries = ({ children, ...props }: any) => (
-    <div style={{ display: 'flex', gap: '8px' }} {...props}>{children}</div>
+    <div className={styles.entries} {...props}>{children}</div>
   );
   
   const EntriesFooter = ({ children, ...props }: any) => (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 16px' }} {...props}>{children}</div>
+    <div className={styles.entriesFooter} {...props}>{children}</div>
   );
   
   const BtnPrevNext = ({ children, ...props }: any) => (
-    <button style={{ cursor: 'pointer', border: 'none', fontSize: '14px', margin: '0', display: 'flex', alignItems: 'center', justifyContent: 'center' }} {...props}>{children}</button>
+    <button className={styles.btnPrevNext} {...props}>{children}</button>
   );
   
   const BtnPage = ({ children, ...props }: any) => (
-    <button style={{ cursor: 'pointer', padding: '6px 12px', border: '1.5px solid #12002b', borderRadius: '6px' }} {...props}>{children}</button>
+    <button className={styles.btnPage} {...props}>{children}</button>
   );
 
   return (

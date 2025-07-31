@@ -1,11 +1,25 @@
-import Navigation from "../Navigation";
-import { HeaderWrapper, Title } from "./Header.styles";
+import React from 'react';
 
-export default function Header() {
+const headerStyle = {
+  textAlign: 'center' as const,
+  padding: '20px 0',
+  borderBottom: '1px solid #ddd',
+  marginBottom: '20px'
+};
+
+const titleStyle = {
+  fontSize: '2.5rem',
+  fontWeight: 'bold',
+  color: '#333',
+  margin: 0
+};
+
+const Header: React.FC = () => {
   return (
-    <HeaderWrapper>
-      <Title>HRnet</Title>
-      <Navigation />
-    </HeaderWrapper>
+    <header style={headerStyle}>
+      <h1 style={titleStyle}>HRnet</h1>
+    </header>
   );
-}
+};
+
+export default Header;

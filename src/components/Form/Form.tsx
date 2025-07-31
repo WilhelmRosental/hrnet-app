@@ -1,111 +1,246 @@
-import { FormContainer, Fieldset, Label, Input, Button } from "./Form.styles";
-import { useRef, FormEvent, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import Dropdown from "../Dropdown";
-import states from "./statesList";
-import Datepicker from "../Datepicker";
-import Modal from "../Modal";
-import { formSlice } from "@/app/store/formSlice";
+import styles from "./Form.module.css";
+import { formSlice } from "../../store/formSlice";
 import { IEmployee } from "../../types";
 
-export default function Form() {
+const states = [
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
+  "Wyoming",
+];
+
+const departments = [
+  "Sales",
+  "Marketing",
+  "Engineering",
+  "Human Resources",
+  "Legal",
+];
+
+function Form() {
   const dispatch = useDispatch();
+  const [formData, setFormData] = useState<IEmployee>({
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    startDate: "",
+    street: "",
+    city: "",
+    state: states[0],
+    zipCode: "",
+    department: departments[0],
+  });
 
-  const [showModal, setShowModal] = useState(false);
-
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const dateOfBirthRef = useRef<HTMLInputElement>(null);
-  const streetRef = useRef<HTMLInputElement>(null);
-  const cityRef = useRef<HTMLInputElement>(null);
-  const stateRef = useRef<HTMLSelectElement>(null);
-  const zipCodeRef = useRef<HTMLInputElement>(null);
-  const startDateRef = useRef<HTMLInputElement>(null);
-  const departmentRef = useRef<HTMLSelectElement>(null);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    getDataInput();
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 1000);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const getDataInput = () => {
-    const data: IEmployee = {
-      firstName: firstNameRef.current?.value,
-      lastName: lastNameRef.current?.value,
-      dateOfBirth: dateOfBirthRef.current?.value,
-      street: streetRef.current?.value,
-      city: cityRef.current?.value,
-      state: stateRef.current?.value,
-      zipCode: zipCodeRef.current?.value,
-      startDate: startDateRef.current?.value,
-      department: departmentRef.current?.value,
-    };
-    dispatch(formSlice.actions.addData(data));
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(formSlice.actions.addData(formData));
+    // Reset form
+    setFormData({
+      firstName: "",
+      lastName: "",
+      dateOfBirth: "",
+      startDate: "",
+      street: "",
+      city: "",
+      state: states[0],
+      zipCode: "",
+      department: departments[0],
+    });
+    alert("Employee created successfully!");
   };
 
   return (
-    <>
-      <FormContainer onSubmit={handleSubmit}>
-        <Fieldset>
-          <legend>Personal Info</legend>
-
-          <Label htmlFor="first-name">First Name :</Label>
-          <Input ref={firstNameRef} type="text" id="first-name" />
-
-          <Label htmlFor="last-name">Last Name :</Label>
-          <Input ref={lastNameRef} type="text" id="last-name" />
-
-          <Label htmlFor="date-of-birth">Date of Birth :</Label>
-          <Datepicker
-            style="input"
-            refHook={dateOfBirthRef}
-            name="date-of-birth"
+    <form className={styles.formContainer} onSubmit={handleSubmit}>
+      <div className={styles.formRow}>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="firstName">First Name</label>
+          <input
+            className={styles.input}
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
+            required
           />
-        </Fieldset>
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="lastName">Last Name</label>
+          <input
+            className={styles.input}
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+      </div>
 
-        <Fieldset>
-          <legend>Address</legend>
+      <div className={styles.formRow}>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="dateOfBirth">Date of Birth</label>
+          <input
+            className={styles.input}
+            type="date"
+            id="dateOfBirth"
+            name="dateOfBirth"
+            value={formData.dateOfBirth}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="startDate">Start Date</label>
+          <input
+            className={styles.input}
+            type="date"
+            id="startDate"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+      </div>
 
-          <Label htmlFor="street">Street :</Label>
-          <Input ref={streetRef} id="street" type="text" />
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="street">Street</label>
+        <input
+          className={styles.input}
+          type="text"
+          id="street"
+          name="street"
+          value={formData.street}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
 
-          <Label htmlFor="city">City :</Label>
-          <Input ref={cityRef} id="city" type="text" />
-
-          <Label htmlFor="state">State :</Label>
-          <Dropdown name="state" refHook={stateRef}>
-            {states.map((element) => (
-              <option key={element.abbreviation} value={element.abbreviation}>
-                {element.name}
+      <div className={styles.formRow}>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="city">City</label>
+          <input
+            className={styles.input}
+            type="text"
+            id="city"
+            name="city"
+            value={formData.city}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="state">State</label>
+          <select
+            className={styles.select}
+            id="state"
+            name="state"
+            value={formData.state}
+            onChange={handleInputChange}
+            required
+          >
+            {states.map((state) => (
+              <option key={state} value={state}>
+                {state}
               </option>
             ))}
-          </Dropdown>
+          </select>
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="zipCode">Zip Code</label>
+          <input
+            className={styles.input}
+            type="text"
+            id="zipCode"
+            name="zipCode"
+            value={formData.zipCode}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+      </div>
 
-          <Label htmlFor="zip-code">Zip Code :</Label>
-          <Input ref={zipCodeRef} id="zip-code" type="number" />
-        </Fieldset>
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="department">Department</label>
+        <select
+          className={styles.select}
+          id="department"
+          name="department"
+          value={formData.department}
+          onChange={handleInputChange}
+          required
+        >
+          {departments.map((dept) => (
+            <option key={dept} value={dept}>
+              {dept}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <Fieldset>
-          <legend>Professional Info</legend>
-
-          <Label htmlFor="start-date">Start Date :</Label>
-          <Datepicker style="input" refHook={startDateRef} name="start-date" />
-
-          <Label htmlFor="department">Department :</Label>
-          <Dropdown name="department" refHook={departmentRef}>
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-          </Dropdown>
-        </Fieldset>
-
-        <Button type="submit">Save</Button>
-      </FormContainer>
-      <Modal activeModal={showModal} />
-    </>
+      <button className={styles.submitButton} type="submit">Save</button>
+    </form>
   );
 }
+
+export default Form;
